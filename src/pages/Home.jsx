@@ -7,6 +7,7 @@ const Home = () => {
   const [audioDuration, setAudioDuration] = useState(0);
   const [audioCurrentTime, setAudioCurrentTime] = useState(0);
   const [seeking, setSeeking] = useState(false);
+  const [wasPlaying, setWasPlaying] = useState(false);
 
   useEffect(() => {
     const handleTimeUpdate = (e) => {
@@ -54,8 +55,16 @@ const Home = () => {
       }
     }
 
-    setAudioCurrentTime(audioElement.currentTime); // Set initial time for animation
+    setAudioCurrentTime(audioElement.currentTime);
     setCurrentAudioIndex(audioElement.paused ? null : index);
+  };
+
+  const startSeek = (event) => {
+    const audioElement = document.getElementById(`audio_${currentAudioIndex}`);
+    if (audioElement) {
+      setWasPlaying(!audioElement.paused);
+      setSeeking(true);
+    }
   };
 
   const handleSeek = (event) => {
@@ -66,6 +75,14 @@ const Home = () => {
         (event.nativeEvent.offsetX / event.target.offsetWidth) * audioDuration;
       audioElement.currentTime = newPosition;
       setAudioCurrentTime(newPosition);
+    }
+  };
+
+  const stopSeek = () => {
+    setSeeking(false);
+    const audioElement = document.getElementById(`audio_${currentAudioIndex}`);
+    if (audioElement && wasPlaying) {
+      audioElement.play();
     }
   };
 
@@ -88,14 +105,12 @@ const Home = () => {
               <p className="text-white pt-2">{item.name}</p>
               <p className="text-white pt-2">{item.author}</p>
             </div>
-            <div
-              className="absolute w-full h-[120px] mt-16 top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100 cursor-pointer bg-black"
-              onClick={() => handlePlayClick(index)}
-            >
+            <div className="absolute w-full h-[120px] mt-16 top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100 cursor-pointer bg-black">
               <img
                 src="/play.svg"
                 alt=""
                 className="w-full h-full cursor-pointer"
+                onClick={() => handlePlayClick(index)}
               />
               <audio id={`audio_${index}`} className="hidden">
                 <source src={item.song} />
@@ -104,26 +119,13 @@ const Home = () => {
                 <>
                   <div
                     className="h-2 bg-gray-800 mt-2 rounded-md overflow-hidden"
-                    onMouseDown={(e) => {
-                      setSeeking(true);
-                      handleSeek(e);
-                    }}
+                    onMouseDown={startSeek}
                     onMouseMove={(e) => {
                       if (seeking) {
                         handleSeek(e);
                       }
                     }}
-                    onMouseUp={() => {
-                      setSeeking(false);
-                      const audioElement = document.getElementById(
-                        `audio_${currentAudioIndex}`
-                      );
-                      if (audioElement) {
-                        if (playStatus[currentAudioIndex]) {
-                          audioElement.play();
-                        }
-                      }
-                    }}
+                    onMouseUp={stopSeek}
                   >
                     <div
                       className={`h-full bg-green-500 ${
