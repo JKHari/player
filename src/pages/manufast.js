@@ -34,6 +34,41 @@ const data = [
     author: "Love",
     song: "audio/Inthandham.mp3",
   },
+  {
+    img: "/fav.webp",
+    file: "",
+    name: "Manam Kothi Paravai",
+    author: "nice song",
+    song: "audio/favmnk.mp3",
+  },
+  {
+    img: "/fav2.jpg",
+    file: "",
+    name: "Manam Kothi Paravai",
+    author: "Its me",
+    song: "audio/mnk2.mp3",
+  },
+  {
+    img: "/vijay3.jpeg",
+    file: "",
+    name: "Kushi",
+    author: "Love",
+    song: "audio/SitaRamamEmotional.mp3",
+  },
+  {
+    img: "/vijay4.webp",
+    file: "",
+    name: "Geethagovindham",
+    author: "Love",
+    song: "audio/KurumugilSitaRamam.mp3",
+  },
+  {
+    img: "/vijay2.jpg",
+    file: "",
+    name: "Geethagovindham",
+    author: "Love",
+    song: "audio/Inthandham.mp3",
+  },
 ];
 
 export default data;

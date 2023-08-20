@@ -6,10 +6,13 @@ const Home = () => {
   const [playStatus, setPlayStatus] = useState(Array(data.length).fill(false));
   const [audioDuration, setAudioDuration] = useState(0);
   const [audioCurrentTime, setAudioCurrentTime] = useState(0);
+  const [seeking, setSeeking] = useState(false);
 
   useEffect(() => {
     const handleTimeUpdate = (e) => {
-      setAudioCurrentTime(e.target.currentTime);
+      if (!seeking) {
+        setAudioCurrentTime(e.target.currentTime);
+      }
     };
 
     const audioElement = document.getElementById(`audio_${currentAudioIndex}`);
@@ -22,7 +25,7 @@ const Home = () => {
         audioElement.removeEventListener("timeupdate", handleTimeUpdate);
       };
     }
-  }, [currentAudioIndex]);
+  }, [currentAudioIndex, seeking]);
 
   const handlePlayClick = (index) => {
     const audioElement = document.getElementById(`audio_${index}`);
@@ -53,6 +56,17 @@ const Home = () => {
 
     setAudioCurrentTime(audioElement.currentTime); // Set initial time for animation
     setCurrentAudioIndex(audioElement.paused ? null : index);
+  };
+
+  const handleSeek = (event) => {
+    event.preventDefault();
+    const audioElement = document.getElementById(`audio_${currentAudioIndex}`);
+    if (audioElement) {
+      const newPosition =
+        (event.nativeEvent.offsetX / event.target.offsetWidth) * audioDuration;
+      audioElement.currentTime = newPosition;
+      setAudioCurrentTime(newPosition);
+    }
   };
 
   const audioProgress = (audioCurrentTime / audioDuration) * 100;
@@ -88,18 +102,43 @@ const Home = () => {
               </audio>
               {currentAudioIndex === index && (
                 <>
-                  <div className="h-2 bg-gray-800 mt-2 rounded-md overflow-hidden">
+                  <div
+                    className="h-2 bg-gray-800 mt-2 rounded-md overflow-hidden"
+                    onMouseDown={(e) => {
+                      setSeeking(true);
+                      handleSeek(e);
+                    }}
+                    onMouseMove={(e) => {
+                      if (seeking) {
+                        handleSeek(e);
+                      }
+                    }}
+                    onMouseUp={() => {
+                      setSeeking(false);
+                      const audioElement = document.getElementById(
+                        `audio_${currentAudioIndex}`
+                      );
+                      if (audioElement) {
+                        if (playStatus[currentAudioIndex]) {
+                          audioElement.play();
+                        }
+                      }
+                    }}
+                  >
                     <div
-                      className={`h-full bg-green-500 transition-width duration-300 ${
-                        playStatus[index] ? "w-full" : "w-0"
+                      className={`h-full bg-green-500 ${
+                        playStatus[index] ? "transition-width duration-300" : ""
                       }`}
-                      style={{ width: `${audioProgress}%` }}
+                      style={{
+                        width: `${audioProgress}%`,
+                        transitionProperty: playStatus[index] ? "width" : "",
+                      }}
                     ></div>
                   </div>
-                  <p className="text-white mt-1">
-                    {formatTime(audioCurrentTime)}
-                  </p>
-                  <p className="text-white mt-1">{formatTime(audioDuration)}</p>
+                  <div className="flex justify-between text-white mt-1">
+                    <p>{formatTime(audioCurrentTime)}</p>
+                    <p>{formatTime(audioDuration)}</p>
+                  </div>
                 </>
               )}
             </div>

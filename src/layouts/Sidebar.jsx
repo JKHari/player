@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <div className="w-[350px] bg-[#121212] text-start pl-5 py-3">
-      <ul className="text-white pt-5">
+    <div className="w-[350px] bg-black text-start pl-5 py-3">
+      <ul className="text-white pt-5 ml-2 bg-[#121212]">
         <li className="py-3">
           <div>
             <img src="" alt="" />
