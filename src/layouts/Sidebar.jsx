@@ -6,13 +6,13 @@ const Sidebar = () => {
   return (
     <div className="w-[350px] bg-[#121212] text-start pl-5 py-3">
       <ul className="text-white pt-5">
-        <li>
+        <li className="py-3">
           <div>
             <img src="" alt="" />
             <Link to="/">Home</Link>
           </div>
         </li>
-        <li>
+        <li className="py-3">
           <Link to="/about">Search</Link>
         </li>
         {/* ... */}

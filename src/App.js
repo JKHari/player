@@ -8,9 +8,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Im
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="flex text-center">
         <Sidebar />
-        <main className="content">
+        <main className="w-full">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
