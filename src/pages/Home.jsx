@@ -17,47 +17,52 @@ const Home = () => {
       }
     };
 
-    const audioElement = document.getElementById(`audio_${currentAudioIndex}`);
+    if (currentAudioIndex !== null) {
+      const audioElement = document.getElementById(
+        `audio_${currentAudioIndex}`
+      );
 
-    if (audioElement) {
-      audioElement.addEventListener("timeupdate", handleTimeUpdate);
-      setAudioDuration(audioElement.duration);
+      if (audioElement) {
+        audioElement.addEventListener("timeupdate", handleTimeUpdate);
+        setAudioDuration(audioElement.duration);
 
-      return () => {
-        audioElement.removeEventListener("timeupdate", handleTimeUpdate);
-      };
+        return () => {
+          audioElement.removeEventListener("timeupdate", handleTimeUpdate);
+        };
+      }
     }
   }, [currentAudioIndex, seeking]);
 
-  const handlePlayClick = (index) => {
-    const audioElement = document.getElementById(`audio_${index}`);
-    const currentAudioElement = document.getElementById(
-      `audio_${currentAudioIndex}`
-    );
-
-    if (currentAudioElement && currentAudioElement !== audioElement) {
-      currentAudioElement.pause();
-      setPlayStatus((prevStatus) =>
-        prevStatus.map((status, i) =>
-          i === currentAudioIndex ? false : status
-        )
-      );
-    }
-
-    setPlayStatus((prevStatus) =>
-      prevStatus.map((status, i) => (i === index ? !status : status))
-    );
+  const handlePlayClick = (id) => {
+    const audioElement = document.getElementById(`audio_${id}`);
 
     if (audioElement) {
+      if (currentAudioIndex !== null && currentAudioIndex !== id) {
+        const currentAudioElement = document.getElementById(
+          `audio_${currentAudioIndex}`
+        );
+        currentAudioElement.pause();
+        setPlayStatus((prevStatus) =>
+          prevStatus.map((status, i) =>
+            i === currentAudioIndex ? false : status
+          )
+        );
+      }
+
       if (audioElement.paused) {
         audioElement.play();
+        setPlayStatus((prevStatus) =>
+          prevStatus.map((status, i) => (i === id ? true : status))
+        );
       } else {
         audioElement.pause();
+        setPlayStatus((prevStatus) =>
+          prevStatus.map((status, i) => (i === id ? false : status))
+        );
       }
-    }
 
-    setAudioCurrentTime(audioElement.currentTime);
-    setCurrentAudioIndex(audioElement.paused ? null : index);
+      setCurrentAudioIndex(audioElement.paused ? null : id);
+    }
   };
 
   const startSeek = (event) => {
@@ -113,8 +118,8 @@ const Home = () => {
       </div>
       <div className="bg-[#1e1e1e] w-full px-8 py-10 flex gap-6 flex-wrap">
         {filteredData.length > 0 ? (
-          filteredData.map((item, index) => (
-            <div key={index} className="relative">
+          filteredData.map((item) => (
+            <div key={item.id} className="relative">
               <div className="w-[200px] h-auto bg-[#121212] p-1 flex flex-col justify-center items-center flex-wrap rounded-md ">
                 <img src={item.img} alt="" className="w-[180px] h-[180px]" />
                 <p className="text-white pt-2">{item.name}</p>
@@ -125,12 +130,12 @@ const Home = () => {
                   src="/play.svg"
                   alt=""
                   className="w-full h-full cursor-pointer"
-                  onClick={() => handlePlayClick(index)}
+                  onClick={() => handlePlayClick(item.id)}
                 />
-                <audio id={`audio_${index}`} className="hidden">
+                <audio id={`audio_${item.id}`} className="hidden">
                   <source src={item.song} />
                 </audio>
-                {currentAudioIndex === index && (
+                {playStatus[item.id] && (
                   <>
                     <div
                       className="h-2 bg-gray-800 mt-2 rounded-md overflow-hidden"
@@ -144,13 +149,15 @@ const Home = () => {
                     >
                       <div
                         className={`h-full bg-green-500 ${
-                          playStatus[index]
+                          playStatus[item.id]
                             ? "transition-width duration-300"
                             : ""
                         }`}
                         style={{
                           width: `${audioProgress}%`,
-                          transitionProperty: playStatus[index] ? "width" : "",
+                          transitionProperty: playStatus[item.id]
+                            ? "width"
+                            : "",
                         }}
                       ></div>
                     </div>

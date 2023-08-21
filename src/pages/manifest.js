@@ -1,5 +1,6 @@
 const data = [
   {
+    id: 1,
     img: "/vijay1.jpg",
     file: "",
     name: "En Roja neeye",
@@ -7,6 +8,7 @@ const data = [
     song: "audio/Inthandham.mp3",
   },
   {
+    id: 2,
     img: "/ajrdy.jpg",
     file: "",
     name: "Ajun Reddy",
@@ -14,6 +16,7 @@ const data = [
     song: "audio/KurumugilSitaRamam.mp3",
   },
   {
+    id: 3,
     img: "/vijay3.jpeg",
     file: "",
     name: "Kushi",
@@ -21,6 +24,7 @@ const data = [
     song: "audio/SitaRamamEmotional.mp3",
   },
   {
+    id: 4,
     img: "/vijay4.webp",
     file: "",
     name: "Geethagovindham",
@@ -28,6 +32,7 @@ const data = [
     song: "audio/KurumugilSitaRamam.mp3",
   },
   {
+    id: 5,
     img: "/vijay2.jpg",
     file: "",
     name: "Geethagovindham",
@@ -35,6 +40,7 @@ const data = [
     song: "audio/Inthandham.mp3",
   },
   {
+    id: 6,
     img: "/fav.webp",
     file: "",
     name: "Manam Kothi Paravai",
@@ -42,6 +48,7 @@ const data = [
     song: "audio/favmnk.mp3",
   },
   {
+    id: 7,
     img: "/fav2.jpg",
     file: "",
     name: "Manam Kothi Paravai",
@@ -49,6 +56,7 @@ const data = [
     song: "audio/mnk2.mp3",
   },
   {
+    id: 8,
     img: "/vijay3.jpeg",
     file: "",
     name: "Kushi",
@@ -56,6 +64,7 @@ const data = [
     song: "audio/SitaRamamEmotional.mp3",
   },
   {
+    id: 9,
     img: "/vijay4.webp",
     file: "",
     name: "Geethagovindham",
@@ -63,6 +72,7 @@ const data = [
     song: "audio/KurumugilSitaRamam.mp3",
   },
   {
+    id: 10,
     img: "/vijay2.jpg",
     file: "",
     name: "Geethagovindham",
