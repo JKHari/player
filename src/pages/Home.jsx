@@ -97,7 +97,7 @@ const Home = () => {
 
   const filteredData = data.filter((item) =>
     item.name.toLowerCase().includes(searchKeyword.toLowerCase())
-  ); // Filter the data based on the search keyword
+  );
 
   return (
     <div className="bg-[#121212] h-screen">
@@ -105,60 +105,69 @@ const Home = () => {
         <h1 className="text-white py-5 font-bold text-2xl">Enjoy The Music</h1>
         <input
           type="search"
+          placeholder="Search"
           className="bg-black h-10 w-[220px] text-gray-400 px-3 rounded-lg"
           value={searchKeyword}
           onChange={(e) => setSearchKeyword(e.target.value)}
         />
       </div>
       <div className="bg-[#1e1e1e] w-full px-8 py-10 flex gap-6 flex-wrap">
-        {filteredData.map((item, index) => (
-          <div key={index} className="relative">
-            <div className="w-[200px] h-auto bg-[#121212] p-1 flex flex-col justify-center items-center flex-wrap rounded-md ">
-              <img src={item.img} alt="" className="w-[180px] h-[180px]" />
-              <p className="text-white pt-2">{item.name}</p>
-              <p className="text-white pt-2">{item.author}</p>
-            </div>
-            <div className="absolute w-full h-[120px] mt-16 top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100 cursor-pointer bg-black">
-              <img
-                src="/play.svg"
-                alt=""
-                className="w-full h-full cursor-pointer"
-                onClick={() => handlePlayClick(index)}
-              />
-              <audio id={`audio_${index}`} className="hidden">
-                <source src={item.song} />
-              </audio>
-              {currentAudioIndex === index && (
-                <>
-                  <div
-                    className="h-2 bg-gray-800 mt-2 rounded-md overflow-hidden"
-                    onMouseDown={startSeek}
-                    onMouseMove={(e) => {
-                      if (seeking) {
-                        handleSeek(e);
-                      }
-                    }}
-                    onMouseUp={stopSeek}
-                  >
+        {filteredData.length > 0 ? (
+          filteredData.map((item, index) => (
+            <div key={index} className="relative">
+              <div className="w-[200px] h-auto bg-[#121212] p-1 flex flex-col justify-center items-center flex-wrap rounded-md ">
+                <img src={item.img} alt="" className="w-[180px] h-[180px]" />
+                <p className="text-white pt-2">{item.name}</p>
+                <p className="text-white pt-2">{item.author}</p>
+              </div>
+              <div className="absolute w-full h-[120px] mt-16 top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100 cursor-pointer bg-black">
+                <img
+                  src="/play.svg"
+                  alt=""
+                  className="w-full h-full cursor-pointer"
+                  onClick={() => handlePlayClick(index)}
+                />
+                <audio id={`audio_${index}`} className="hidden">
+                  <source src={item.song} />
+                </audio>
+                {currentAudioIndex === index && (
+                  <>
                     <div
-                      className={`h-full bg-green-500 ${
-                        playStatus[index] ? "transition-width duration-300" : ""
-                      }`}
-                      style={{
-                        width: `${audioProgress}%`,
-                        transitionProperty: playStatus[index] ? "width" : "",
+                      className="h-2 bg-gray-800 mt-2 rounded-md overflow-hidden"
+                      onMouseDown={startSeek}
+                      onMouseMove={(e) => {
+                        if (seeking) {
+                          handleSeek(e);
+                        }
                       }}
-                    ></div>
-                  </div>
-                  <div className="flex justify-between text-white mt-1">
-                    <p>{formatTime(audioCurrentTime)}</p>
-                    <p>{formatTime(audioDuration)}</p>
-                  </div>
-                </>
-              )}
+                      onMouseUp={stopSeek}
+                    >
+                      <div
+                        className={`h-full bg-green-500 ${
+                          playStatus[index]
+                            ? "transition-width duration-300"
+                            : ""
+                        }`}
+                        style={{
+                          width: `${audioProgress}%`,
+                          transitionProperty: playStatus[index] ? "width" : "",
+                        }}
+                      ></div>
+                    </div>
+                    <div className="flex justify-between text-white mt-1">
+                      <p>{formatTime(audioCurrentTime)}</p>
+                      <p>{formatTime(audioDuration)}</p>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p className="w-full justify-center items-center text-white text-3xl">
+            No Song here...😅
+          </p>
+        )}
       </div>
     </div>
   );
