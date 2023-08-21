@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import data from "./manufast";
+import data from "./manifest";
 
 const Home = () => {
   const [currentAudioIndex, setCurrentAudioIndex] = useState(null);
