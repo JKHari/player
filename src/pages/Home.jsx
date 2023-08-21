@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import data from "./manifest";
 
 const Home = () => {
+  const [searchKeyword, setSearchKeyword] = useState("");
   const [currentAudioIndex, setCurrentAudioIndex] = useState(null);
   const [playStatus, setPlayStatus] = useState(Array(data.length).fill(false));
   const [audioDuration, setAudioDuration] = useState(0);
@@ -94,6 +95,10 @@ const Home = () => {
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
+  const filteredData = data.filter((item) =>
+    item.name.toLowerCase().includes(searchKeyword.toLowerCase())
+  ); // Filter the data based on the search keyword
+
   return (
     <div className="bg-[#121212] h-screen">
       <div className="flex justify-between mx-5 items-center">
@@ -101,10 +106,12 @@ const Home = () => {
         <input
           type="search"
           className="bg-black h-10 w-[220px] text-gray-400 px-3 rounded-lg"
+          value={searchKeyword}
+          onChange={(e) => setSearchKeyword(e.target.value)}
         />
       </div>
       <div className="bg-[#1e1e1e] w-full px-8 py-10 flex gap-6 flex-wrap">
-        {data.map((item, index) => (
+        {filteredData.map((item, index) => (
           <div key={index} className="relative">
             <div className="w-[200px] h-auto bg-[#121212] p-1 flex flex-col justify-center items-center flex-wrap rounded-md ">
               <img src={item.img} alt="" className="w-[180px] h-[180px]" />
