@@ -64,14 +64,14 @@ const data = [
     song: "audio/mnk2.mp3",
   },
   
-  // {
-  //   id: 9,
-  //   img: "/vijay4.webp",
-  //   file: "",
-  //   name: "Geethagovindham",
-  //   author: "Love",
-  //   song: "audio/KurumugilSitaRamam.mp3",
-  // },
+  {
+    id: 9,
+    img: "/nallthorum.jpg",
+    file: "",
+    name: "Naal thorum etho maruthu",
+    author: "Love",
+    song: "audio/naalthorum.mp3",
+  },
   // {
   //   id: 10,
   //   img: "/vijay2.jpg",
