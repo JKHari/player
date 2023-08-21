@@ -96,7 +96,13 @@ const Home = () => {
 
   return (
     <div className="bg-[#121212] h-screen">
-      <h1 className="text-white py-5 font-bold text-2xl">Enjoy The Music</h1>
+      <div className="flex justify-between mx-5 items-center">
+        <h1 className="text-white py-5 font-bold text-2xl">Enjoy The Music</h1>
+        <input
+          type="search"
+          className="bg-black h-10 w-[220px] text-gray-400 px-3 rounded-lg"
+        />
+      </div>
       <div className="bg-[#1e1e1e] w-full px-8 py-10 flex gap-6 flex-wrap">
         {data.map((item, index) => (
           <div key={index} className="relative">

@@ -12,8 +12,11 @@ const Sidebar = () => {
             <Link to="/">Home</Link>
           </div>
         </li>
+        {/* <li className="py-3">
+          <Link to="/search">Search</Link>
+        </li> */}
         <li className="py-3">
-          <Link to="/about">Search</Link>
+          <Link to="/playlist">PlayList</Link>
         </li>
         {/* ... */}
       </ul>
