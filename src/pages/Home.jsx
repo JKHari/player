@@ -119,9 +119,13 @@ const Home = () => {
       <div className="bg-[#1e1e1e] w-full px-8 py-10 flex gap-6 flex-wrap">
         {filteredData.length > 0 ? (
           filteredData.map((item) => (
-            <div key={item.id} className="relative">
+            <div key={item.id} className="relative mb-5">
               <div className="w-[200px] h-auto bg-[#121212] p-1 flex flex-col justify-center items-center flex-wrap rounded-md ">
-                <img src={item.img} alt="" className="w-[180px] h-[180px]" />
+                <img
+                  src={item.img}
+                  alt=""
+                  className="w-[180px] h-[180px] object-cover"
+                />
                 <p className="text-white pt-2">{item.name}</p>
                 <p className="text-white pt-2">{item.author}</p>
               </div>
