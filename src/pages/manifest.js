@@ -25,7 +25,7 @@ const data = [
   },
   {
     id: 4,
-    img: "/poovinai.jpg",
+    img: "/poovinai2.jpg",
     file: "",
     name: "Ananda Thandavam",
     author: "Love",
@@ -119,6 +119,14 @@ const data = [
     name: "Andru Kadhal Panniyathu",
     author: "Kadhal",
     song: "audio/andrukadhalpanniyathu.mp3",
+  },
+  {
+    id: 16,
+    img: "/sogathal.png",
+    file: "",
+    name: "Sogathal Ethuthan Maridum",
+    author: "Pain",
+    song: "audio/sogathalethuthanmaridum.mp3",
   },
 ];
 
