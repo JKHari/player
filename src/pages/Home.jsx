@@ -127,9 +127,12 @@ const Home = () => {
             <div
               key={item.id}
               className={`relative mb-5 ${
-                playStatus[item.id] ? "bg-red-400 p-2" : ""
+                playStatus[item.id] ? "playing" : ""
               }`}
             >
+              {playStatus[item.id] && (
+                <img src="./playgif.gif" className="h-5 w-5" alt="Playing" />
+              )}
               <div className="w-[200px] h-auto bg-[#121212] p-1 flex flex-col justify-center items-center flex-wrap rounded-md ">
                 <img
                   src={item.img}
