@@ -63,7 +63,7 @@ const data = [
     author: "Its me",
     song: "audio/mnk2.mp3",
   },
-  
+
   {
     id: 9,
     img: "/nallthorum.jpg",
@@ -111,6 +111,14 @@ const data = [
     name: "Kadhalai Solla",
     author: "Love",
     song: "audio/kadhalaisolla.mp3",
+  },
+  {
+    id: 15,
+    img: "/andrukadal.jpg",
+    file: "",
+    name: "Andru Kadhal Panniyathu",
+    author: "Kadhal",
+    song: "audio/andrukadhalpanniyathu.mp3",
   },
 ];
 
