@@ -112,7 +112,7 @@ const Home = () => {
         <input
           type="search"
           placeholder="Search"
-          className="bg-black h-10 w-[220px] text-gray-400 px-3 rounded-lg"
+          className="bg-black h-10 w-[220px] text-gray-400 px-3 rounded-lg outline outline-offset-2 outline-1 hover:outline-green-500"
           value={searchKeyword}
           onChange={(e) => setSearchKeyword(e.target.value)}
         />
@@ -122,7 +122,7 @@ const Home = () => {
           filteredData.map((item) => (
             <div
               key={item.id}
-              className={`relative mb-5 ${
+              className={`relative mb-5 hover:shadow-xl cursor-pointer ${
                 playStatus[item.id] ? "playing" : ""
               }`}
             >
@@ -167,7 +167,7 @@ const Home = () => {
                       onMouseUp={stopSeek}
                     >
                       <div
-                        className={`h-full bg-green-500  ${
+                        className={`h-full bg-gradient-to-r from-green-500 to-[#00bb44]  ${
                           playStatus[item.id]
                             ? "transition-width duration-300"
                             : ""
@@ -191,7 +191,7 @@ const Home = () => {
             </div>
           ))
         ) : (
-          <p className="w-full justify-center items-center text-white text-3xl">
+          <p className="w-full h-screen justify-center items-center text-white text-3xl">
             No Song here...😅
           </p>
         )}
