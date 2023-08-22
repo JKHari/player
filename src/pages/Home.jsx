@@ -33,7 +33,7 @@ const Home = () => {
     }
   }, [currentAudioIndex, seeking]);
 
-  const handlePlayClick = (id) => {
+  const handlePlayClick = async (id) => {
     const audioElement = document.getElementById(`audio_${id}`);
 
     if (audioElement) {
@@ -41,7 +41,8 @@ const Home = () => {
         const currentAudioElement = document.getElementById(
           `audio_${currentAudioIndex}`
         );
-        currentAudioElement.pause();
+        await currentAudioElement.pause();
+        await currentAudioElement.load(); // Reset audio for smoother playback
         setPlayStatus((prevStatus) =>
           prevStatus.map((status, i) =>
             i === currentAudioIndex ? false : status
@@ -50,12 +51,12 @@ const Home = () => {
       }
 
       if (audioElement.paused) {
-        audioElement.play();
+        await audioElement.play();
         setPlayStatus((prevStatus) =>
           prevStatus.map((status, i) => (i === id ? true : status))
         );
       } else {
-        audioElement.pause();
+        await audioElement.pause();
         setPlayStatus((prevStatus) =>
           prevStatus.map((status, i) => (i === id ? false : status))
         );
@@ -105,14 +106,14 @@ const Home = () => {
   );
 
   return (
-    <div className="bg-[#121212] h-screen">
+    <div className="bg-[#121212] ">
       <div className="flex justify-between mx-5 items-center">
         <h1 className="text-white py-5 font-bold text-2xl">Enjoy The Music</h1>
-        <h1 className="text-white py-5 font-bold text-2xl">
+        {/* <h1 className="text-white py-5 font-bold text-2xl">
           {currentAudioIndex !== null
             ? `Playing: ${filteredData[currentAudioIndex - 1]?.name}`
             : "Enjoy The love"}
-        </h1>
+        </h1> */}
         <input
           type="search"
           placeholder="Search"
@@ -131,7 +132,11 @@ const Home = () => {
               }`}
             >
               {playStatus[item.id] && (
-                <img src="./playgif.gif" className="h-20 w-20 absolute top-1/2 mt-10 right-[5px]" alt="Playing" />
+                <img
+                  src="./playgif.gif"
+                  className="h-20 w-20 absolute top-1/2 mt-10 right-[5px]"
+                  alt="Playing"
+                />
               )}
               <div className="w-[200px] h-auto bg-[#121212] p-1 flex flex-col justify-center items-center flex-wrap rounded-md ">
                 <img
