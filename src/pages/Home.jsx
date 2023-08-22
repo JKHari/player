@@ -124,7 +124,12 @@ const Home = () => {
       <div className="bg-[#1e1e1e] w-full px-8 py-10 flex gap-6 flex-wrap">
         {filteredData.length > 0 ? (
           filteredData.map((item) => (
-            <div key={item.id} className="relative mb-5">
+            <div
+              key={item.id}
+              className={`relative mb-5 ${
+                playStatus[item.id] ? "bg-red-400 p-2" : ""
+              }`}
+            >
               <div className="w-[200px] h-auto bg-[#121212] p-1 flex flex-col justify-center items-center flex-wrap rounded-md ">
                 <img
                   src={item.img}
@@ -157,7 +162,7 @@ const Home = () => {
                       onMouseUp={stopSeek}
                     >
                       <div
-                        className={`h-full bg-green-500 ${
+                        className={`h-full bg-green-500  ${
                           playStatus[item.id]
                             ? "transition-width duration-300"
                             : ""
@@ -170,6 +175,7 @@ const Home = () => {
                         }}
                       ></div>
                     </div>
+
                     <div className="flex justify-between text-white mt-1">
                       <p>{formatTime(audioCurrentTime)}</p>
                       <p>{formatTime(audioDuration)}</p>
