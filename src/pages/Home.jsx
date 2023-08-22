@@ -108,6 +108,11 @@ const Home = () => {
     <div className="bg-[#121212] h-screen">
       <div className="flex justify-between mx-5 items-center">
         <h1 className="text-white py-5 font-bold text-2xl">Enjoy The Music</h1>
+        <h1 className="text-white py-5 font-bold text-2xl">
+          {currentAudioIndex !== null
+            ? `Playing: ${filteredData[currentAudioIndex - 1]?.name}`
+            : "Enjoy The love"}
+        </h1>
         <input
           type="search"
           placeholder="Search"
