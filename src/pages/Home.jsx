@@ -131,7 +131,7 @@ const Home = () => {
               }`}
             >
               {playStatus[item.id] && (
-                <img src="./playgif.gif" className="h-5 w-5" alt="Playing" />
+                <img src="./playgif.gif" className="h-20 w-20 absolute top-1/2 mt-10 right-[5px]" alt="Playing" />
               )}
               <div className="w-[200px] h-auto bg-[#121212] p-1 flex flex-col justify-center items-center flex-wrap rounded-md ">
                 <img
