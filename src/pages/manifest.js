@@ -144,6 +144,22 @@ const data = [
     author: "Bgm",
     song: "audio/kadhalaisollamudiyaathabgm.mp3",
   },
+ {
+    id: 19,
+    img: "/anbullasanthiya.jpg",
+    file: "",
+    name: "Anbulla Santhiya",
+    author: "Failure",
+    song: "audio/anubullasanthiya.mp3.mp3",
+  },
+  {
+    id: 20,
+    img: "/kazhugu.jpg",
+    file: "",
+    name: "Kazhugu",
+    author: "Bgm",
+    song: "audio/kalugu.mp3.mp3",
+  },
 ];
 
 export default data;
