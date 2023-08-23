@@ -153,62 +153,67 @@ const Home = () => {
 
   return (
     <div className="bg-[#121212] ">
-      <div className="flex justify-between mx-5 items-center">
-        <h1 className="text-white py-5 font-bold text-2xl">Enjoy The Music</h1>
-        <input
-          type="search"
-          placeholder="Search"
-          className="bg-black h-10 w-[220px] text-gray-400 px-3 rounded-lg outline outline-offset-2 outline-1 hover:outline-green-500"
-          value={searchKeyword}
-          onChange={(e) => setSearchKeyword(e.target.value)}
-        />
-      </div>
-
       {selectSong === null ? (
-        <div
-          className=" bg-gradient-to-r from-[#181818] to-[#212121] w-full px-8 py-10 flex gap-6 flex-wrap"
-          onClick={handleOpenButton}
-        >
-          {filteredData.length > 0 ? (
-            filteredData.map((item) => (
-              <div
-                key={item.id}
-                className={`relative mb-5 hover:shadow-xl cursor-pointer ${
-                  playStatus[item.id] ? "playing" : ""
-                }`}
-                onClick={() => PlaySongPopup(item.id)}
-              >
-                {playStatus[item.id] && (
-                  <img
-                    src="./playgif.gif"
-                    className="h-20 w-20 absolute top-1/2 mt-10 right-[5px]"
-                    alt="Playing"
-                  />
-                )}
-                <div className="w-[200px] h-auto bg-[#181818] hover:bg-[#212121] p-3 flex flex-col justify-center items-center flex-wrap rounded-lg ">
-                  <img
-                    src={item.img}
-                    alt=""
-                    className="w-[180px] h-[180px] object-cover rounded-lg"
-                  />
-                  <div className="w-full flex flex-col justify-start items-start pl-3">
-                    <p className="text-white/90 pt-2 truncate hover:text-clip w-full  flex justify-start text-md font-medium">
-                      {item.name}
-                    </p>
-                    <p className="text-[#a7a7a7] pt-2 text-sm">{item.author}</p>
+        <div>
+          <div className="flex justify-between mx-5 items-center">
+            <h1 className="text-white py-5 font-bold text-2xl">
+              Enjoy The Music
+            </h1>
+            <input
+              type="search"
+              placeholder="Search"
+              className="bg-black h-10 w-[220px] text-gray-400 px-3 rounded-lg outline outline-offset-2 outline-1 hover:outline-green-500"
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
+            />
+          </div>
+          <div
+            className=" bg-gradient-to-r from-[#181818] to-[#212121] w-full px-8 py-10 flex gap-6 flex-wrap"
+            onClick={handleOpenButton}
+          >
+            {filteredData.length > 0 ? (
+              filteredData.map((item) => (
+                <div
+                  key={item.id}
+                  className={`relative mb-5 hover:shadow-xl cursor-pointer ${
+                    playStatus[item.id] ? "playing" : ""
+                  }`}
+                  onClick={() => PlaySongPopup(item.id)}
+                >
+                  {playStatus[item.id] && (
+                    <img
+                      src="./playgif.gif"
+                      className="h-20 w-20 absolute top-1/2 mt-10 right-[5px]"
+                      alt="Playing"
+                    />
+                  )}
+                  <div className="w-[200px] h-auto bg-[#181818] hover:bg-[#212121] p-3 flex flex-col justify-center items-center flex-wrap rounded-lg ">
+                    <img
+                      src={item.img}
+                      alt=""
+                      className="w-[180px] h-[180px] object-cover rounded-lg"
+                    />
+                    <div className="w-full flex flex-col justify-start items-start pl-3">
+                      <p className="text-white/90 pt-2 truncate hover:text-clip w-full  flex justify-start text-md font-medium">
+                        {item.name}
+                      </p>
+                      <p className="text-[#a7a7a7] pt-2 text-sm">
+                        {item.author}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))
-          ) : (
-            <p className="w-full h-screen justify-center items-center text-white text-3xl">
-              No Song here...😅
-            </p>
-          )}
+              ))
+            ) : (
+              <p className="w-full h-screen justify-center items-center text-white text-3xl">
+                No Song here...😅
+              </p>
+            )}
+          </div>
         </div>
       ) : (
-        <div className="bg-[#121212]">
-          <div className=" bg-gradient-to-r from-[#181818] to-[#212121]  px-8  h-screen ">
+        <div className="bg-[#121212] ">
+          <div className=" bg-gradient-to-r from-[#181818] to-[#212121] pt-5 px-8  h-screen ">
             {/* <button onClick={handleClose}>Close</button> */}
             <div onClick={handleClose} className="cursor-pointer p-2">
               <img src="/back.png" alt="" className="w-8 h-8" />
@@ -225,31 +230,33 @@ const Home = () => {
                         className="w-64 h-64 rounded-lg object-cover"
                       />
                       <div className="pl-10 flex flex-col items-start ">
-                        <h2 className="text-white text-4xl pb-5">
+                        <h2 className="text-white text-4xl pb-5 font-semibold	">
                           {item.name}
                         </h2>
-                        <p className="text-white text-lg">{item.author}</p>
+                        <p className="text-white text-lg font-medium">
+                          {item.author}
+                        </p>
                       </div>
                     </div>
                     <div className="w-full  ">
                       <div className="flex gap-4 items-center">
                         <div>
                           {isPlay ? (
-                            <div className="w-[100px] h-[100px] cursor-pointer flex justify-center items-center">
-                              <img
-                                src="/pause.png"
-                                alt=""
-                                className="w-[55px] h-[55px] cursor-pointer rounded-full object-cover"
-                                onClick={() => handlePlayClick(item.id)}
-                              />
-                            </div>
-                          ) : (
                             <img
                               src="/play.svg"
                               alt=""
                               className="w-[100px] h-[100px] cursor-pointer"
                               onClick={() => handlePlayClick(item.id)}
                             />
+                          ) : (
+                            <div className="w-[100px] h-[100px] cursor-pointer flex justify-center items-center">
+                              <img
+                                src="/pause.png"
+                                alt=""
+                                className="w-[50px] h-[50px] cursor-pointer rounded-full object-cover"
+                                onClick={() => handlePlayClick(item.id)}
+                              />
+                            </div>
                           )}
                         </div>
                         <img
