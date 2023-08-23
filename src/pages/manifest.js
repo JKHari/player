@@ -158,7 +158,7 @@ const data = [
     file: "",
     name: "Anbulla Santhiya",
     author: "Failure",
-    song: "audio/anubullasanthiya.mp3.mp3",
+    song: "audio/anubullasanthiya.mp3",
   },
   {
     id: 21,
@@ -166,7 +166,7 @@ const data = [
     file: "",
     name: "Kazhugu",
     author: "Bgm",
-    song: "audio/kalugu.mp3.mp3",
+    song: "audio/kalugu.mp3",
   },
 ];
 

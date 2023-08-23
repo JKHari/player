@@ -272,7 +272,6 @@ const Home = () => {
                         <source src={item.song} />
                       </audio>
 
-                      {/* <img src="/musicplaygif.gif" alt="" className="w-4 h-4" /> */}
                       <div className="mt-10 ">
                         <div
                           className="h-2 bg-gray-800 mt-2 rounded-md overflow-hidden"
@@ -304,6 +303,7 @@ const Home = () => {
                           <p>{formatTime(audioDuration)}</p>
                         </div>
                       </div>
+                      {/* <h1 className="text-white">hello</h1> */}
                     </div>
                   </div>
                 ))}
