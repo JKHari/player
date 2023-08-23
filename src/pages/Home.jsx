@@ -7,6 +7,7 @@ const Home = () => {
 
   //   this.openSong = {isOpen: false};
   // }
+  const [isHeartFilled, setIsHeartFilled] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
   const [selectSong, setSelectedSong] = useState(null);
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -16,6 +17,7 @@ const Home = () => {
   const [audioCurrentTime, setAudioCurrentTime] = useState(0);
   const [seeking, setSeeking] = useState(false);
   const [wasPlaying, setWasPlaying] = useState(false);
+  const [isPlay, setIsPlay] = useState(false);
 
   // handle on the song paly
 
@@ -31,6 +33,14 @@ const Home = () => {
   //   alert("ok");
   //   setIsOpen(isOpen);
   // };
+
+  // const IsPlaySong = () => {
+  //   setPlayStatus(!isPlay);
+  // };
+
+  const handleHeartClick = () => {
+    setIsHeartFilled(!isHeartFilled);
+  };
 
   const PlaySongPopup = (id) => {
     setSelectedSong(id);
@@ -59,8 +69,16 @@ const Home = () => {
     }
   }, [currentAudioIndex, seeking]);
 
+  // const handleIconClick = (id) => {
+  //   // Call your other function here
+  //   // For example: IsPlaySong(id);
+  //   handlePlayClick(id); // Call the play/pause function
+  //   // Call your other function here
+  // };
+
   const handlePlayClick = (id) => {
     const audioElement = document.getElementById(`audio_${id}`);
+    setIsPlay(!isPlay);
 
     if (audioElement) {
       if (currentAudioIndex !== null && currentAudioIndex !== id) {
@@ -180,50 +198,6 @@ const Home = () => {
                     <p className="text-[#a7a7a7] pt-2 text-sm">{item.author}</p>
                   </div>
                 </div>
-                <div className="w-full  ">
-                  <img
-                    src="/play.svg"
-                    alt=""
-                    className="absolute w-[100px] h-[100px] mt-[48px]  top-2/4 left-[60%] transform -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100 cursor-pointer"
-                    onClick={() => handlePlayClick(item.id)}
-                  />
-                  <audio id={`audio_${item.id}`} className="hidden">
-                    <source src={item.song} />
-                  </audio>
-                  {playStatus[item.id] && (
-                    <>
-                      <div
-                        className="h-2 bg-gray-800 mt-2 rounded-md overflow-hidden"
-                        onMouseDown={startSeek}
-                        onMouseMove={(e) => {
-                          if (seeking) {
-                            handleSeek(e);
-                          }
-                        }}
-                        onMouseUp={stopSeek}
-                      >
-                        <div
-                          className={`h-full bg-gradient-to-r from-green-500 to-[#00bb44]  ${
-                            playStatus[item.id]
-                              ? "transition-width duration-300"
-                              : ""
-                          }`}
-                          style={{
-                            width: `${audioProgress}%`,
-                            transitionProperty: playStatus[item.id]
-                              ? "width"
-                              : "",
-                          }}
-                        ></div>
-                      </div>
-
-                      <div className="flex justify-between text-white mt-1">
-                        <p>{formatTime(audioCurrentTime)}</p>
-                        <p>{formatTime(audioDuration)}</p>
-                      </div>
-                    </>
-                  )}
-                </div>
               </div>
             ))
           ) : (
@@ -234,59 +208,95 @@ const Home = () => {
         </div>
       ) : (
         <div className="bg-[#121212]">
-          <div className=" bg-gradient-to-r from-[#181818] to-[#212121]  px-8 py-10 h-screen ">
-            <button onClick={handleClose}>Close</button>
-            <div className="text-black">
+          <div className=" bg-gradient-to-r from-[#181818] to-[#212121]  px-8  h-screen ">
+            {/* <button onClick={handleClose}>Close</button> */}
+            <div onClick={handleClose} className="cursor-pointer p-2">
+              <img src="/back.png" alt="" className="w-8 h-8" />
+            </div>
+            <div className="pt-10">
               {data
                 .filter((item) => item.id === selectSong)
                 .map((item) => (
                   <div key={item.id}>
-                    <img src={item.img} alt={item.name} className="w-64 h-64" />
-                    <h2>{item.name}</h2>
-                    <p>{item.author}</p>
-                    <div className="w-full  ">
+                    <div className="flex items-end">
                       <img
-                        src="/play.svg"
-                        alt=""
-                        className="absolute w-[100px] h-[100px] mt-[48px]  top-2/4 left-[60%] transform -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100 cursor-pointer"
-                        onClick={() => handlePlayClick(item.id)}
+                        src={item.img}
+                        alt={item.name}
+                        className="w-64 h-64 rounded-lg object-cover"
                       />
+                      <div className="pl-10 flex flex-col items-start ">
+                        <h2 className="text-white text-4xl pb-5">
+                          {item.name}
+                        </h2>
+                        <p className="text-white text-lg">{item.author}</p>
+                      </div>
+                    </div>
+                    <div className="w-full  ">
+                      <div className="flex gap-4 items-center">
+                        <div>
+                          {isPlay ? (
+                            <div className="w-[100px] h-[100px] cursor-pointer flex justify-center items-center">
+                              <img
+                                src="/pause.png"
+                                alt=""
+                                className="w-[55px] h-[55px] cursor-pointer rounded-full object-cover"
+                                onClick={() => handlePlayClick(item.id)}
+                              />
+                            </div>
+                          ) : (
+                            <img
+                              src="/play.svg"
+                              alt=""
+                              className="w-[100px] h-[100px] cursor-pointer"
+                              onClick={() => handlePlayClick(item.id)}
+                            />
+                          )}
+                        </div>
+                        <img
+                          src={
+                            isHeartFilled ? "/redheart.png" : "/whiteheart1.png"
+                          }
+                          alt=""
+                          className="w-[40px] h-[40px] cursor-pointer"
+                          onClick={handleHeartClick}
+                        />
+                      </div>
                       <audio id={`audio_${item.id}`} className="hidden">
                         <source src={item.song} />
                       </audio>
-                      {playStatus[item.id] && (
-                        <>
-                          <div
-                            className="h-2 bg-gray-800 mt-2 rounded-md overflow-hidden"
-                            onMouseDown={startSeek}
-                            onMouseMove={(e) => {
-                              if (seeking) {
-                                handleSeek(e);
-                              }
-                            }}
-                            onMouseUp={stopSeek}
-                          >
-                            <div
-                              className={`h-full bg-gradient-to-r from-green-500 to-[#00bb44]  ${
-                                playStatus[item.id]
-                                  ? "transition-width duration-300"
-                                  : ""
-                              }`}
-                              style={{
-                                width: `${audioProgress}%`,
-                                transitionProperty: playStatus[item.id]
-                                  ? "width"
-                                  : "",
-                              }}
-                            ></div>
-                          </div>
 
-                          <div className="flex justify-between text-white mt-1">
-                            <p>{formatTime(audioCurrentTime)}</p>
-                            <p>{formatTime(audioDuration)}</p>
-                          </div>
-                        </>
-                      )}
+                      {/* <img src="/musicplaygif.gif" alt="" className="w-4 h-4" /> */}
+                      <div className="mt-10 ">
+                        <div
+                          className="h-2 bg-gray-800 mt-2 rounded-md overflow-hidden"
+                          onMouseDown={startSeek}
+                          onMouseMove={(e) => {
+                            if (seeking) {
+                              handleSeek(e);
+                            }
+                          }}
+                          onMouseUp={stopSeek}
+                        >
+                          <div
+                            className={`h-full bg-gradient-to-r from-green-500 to-[#00bb44]  ${
+                              playStatus[item.id]
+                                ? "transition-width duration-300"
+                                : ""
+                            }`}
+                            style={{
+                              width: `${audioProgress}%`,
+                              transitionProperty: playStatus[item.id]
+                                ? "width"
+                                : "",
+                            }}
+                          ></div>
+                        </div>
+
+                        <div className="flex justify-between text-white mt-1">
+                          <p>{formatTime(audioCurrentTime)}</p>
+                          <p>{formatTime(audioDuration)}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ))}
