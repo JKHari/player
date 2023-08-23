@@ -106,7 +106,7 @@ const data = [
   },
   {
     id: 14,
-    img: "/paiya.jpg",
+    img: "/playlist1.png",
     file: "",
     name: "Kadhalai Solla",
     author: "Love",
@@ -135,6 +135,14 @@ const data = [
     name: "Antha Naliley",
     author: "Fell Free",
     song: "audio/ulla.mp3",
+  },
+  {
+    id: 18,
+    img: "/sollamudiyathakadal.jpg",
+    file: "",
+    name: "Kadhalai Solla",
+    author: "Bgm",
+    song: "audio/kadhalaisollamudiyaathabgm.mp3",
   },
 ];
 
