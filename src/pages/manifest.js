@@ -144,8 +144,16 @@ const data = [
     author: "Bgm",
     song: "audio/kadhalaisollamudiyaathabgm.mp3",
   },
- {
+  {
     id: 19,
+    img: "/oligalin.jpg",
+    file: "",
+    name: "Nallai Allai",
+    author: "Bgm",
+    song: "audio/oligalinthedal.mp3",
+  },
+  {
+    id: 20,
     img: "/anbullasanthiya.jpg",
     file: "",
     name: "Anbulla Santhiya",
@@ -153,7 +161,7 @@ const data = [
     song: "audio/anubullasanthiya.mp3.mp3",
   },
   {
-    id: 20,
+    id: 21,
     img: "/kazhugu.jpg",
     file: "",
     name: "Kazhugu",
