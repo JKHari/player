@@ -128,6 +128,14 @@ const data = [
     author: "Pain",
     song: "audio/sogathalethuthanmaridum.mp3",
   },
+  {
+    id: 17,
+    img: "/ulla.png",
+    file: "",
+    name: "Antha Naliley",
+    author: "Fell Free",
+    song: "audio/ulla.mp3",
+  },
 ];
 
 export default data;

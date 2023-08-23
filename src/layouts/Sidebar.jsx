@@ -26,8 +26,8 @@ const Sidebar = () => {
         </ul>
       </div>
       <div className="flex flex-col justify-start w-[220px] h-auto mt-[600px] fixed items-start pl-3">
-        <h1 className="italic text-green-400">Play Song...🎶 </h1>
-        <h1 className="italic text-green-400 ">Feel Free ❤️ </h1>
+        <h1 className=" text-green-400 font-mono">Play Song...🎶 </h1>
+        <h1 className="italic text-green-400 font-mono">Feel Free ❤️ </h1>
       </div>
     </div>
   );

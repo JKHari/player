@@ -42,7 +42,7 @@ const Home = () => {
           `audio_${currentAudioIndex}`
         );
         await currentAudioElement.pause();
-        await currentAudioElement.load(); // Reset audio for smoother playback
+        await currentAudioElement.load();
         setPlayStatus((prevStatus) =>
           prevStatus.map((status, i) =>
             i === currentAudioIndex ? false : status
@@ -117,7 +117,7 @@ const Home = () => {
           onChange={(e) => setSearchKeyword(e.target.value)}
         />
       </div>
-      <div className="bg-[#1e1e1e] w-full px-8 py-10 flex gap-6 flex-wrap">
+      <div className="bg-gradient-to-r from-[#181818] to-[#212121] w-full px-8 py-10 flex gap-6 flex-wrap">
         {filteredData.length > 0 ? (
           filteredData.map((item) => (
             <div
@@ -133,16 +133,18 @@ const Home = () => {
                   alt="Playing"
                 />
               )}
-              <div className="w-[200px] h-auto bg-[#121212] p-3 flex flex-col justify-center items-center flex-wrap rounded-md ">
+              <div className="w-[200px] h-auto bg-[#181818] hover:bg-[#212121] p-3 flex flex-col justify-center items-center flex-wrap rounded-lg ">
                 <img
                   src={item.img}
                   alt=""
-                  className="w-[180px] h-[180px] object-cover"
+                  className="w-[180px] h-[180px] object-cover rounded-lg"
                 />
-                <p className="text-white pt-2 truncate hover:text-clip w-full h-10">
-                  {item.name}
-                </p>
-                <p className="text-white pt-2">{item.author}</p>
+                <div className="w-full flex flex-col justify-start items-start pl-3">
+                  <p className="text-white/90 pt-2 truncate hover:text-clip w-full  flex justify-start text-md font-medium">
+                    {item.name}
+                  </p>
+                  <p className="text-[#a7a7a7] pt-2 text-sm">{item.author}</p>
+                </div>
               </div>
               <div className="w-full  ">
                 <img
