@@ -7,7 +7,7 @@ const Home = () => {
 
   //   this.openSong = {isOpen: false};
   // }
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [selectSong, setSelectedSong] = useState(null);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [currentAudioIndex, setCurrentAudioIndex] = useState(null);
@@ -22,10 +22,17 @@ const Home = () => {
   const handleOpenButton = () => {
     setIsOpen(!isOpen);
   };
+  const handleClose = () => {
+    setIsOpen(!isOpen);
+    setSelectedSong(null); // Reset the selected song when closing the popup
+  };
+
+  // const handleCloseButton = () => {
+  //   alert("ok");
+  //   setIsOpen(isOpen);
+  // };
 
   const PlaySongPopup = (id) => {
-    alert("hello");
-    alert(id);
     setSelectedSong(id);
   };
 
@@ -52,7 +59,7 @@ const Home = () => {
     }
   }, [currentAudioIndex, seeking]);
 
-  const handlePlayClick = async (id) => {
+  const handlePlayClick = (id) => {
     const audioElement = document.getElementById(`audio_${id}`);
 
     if (audioElement) {
@@ -60,8 +67,8 @@ const Home = () => {
         const currentAudioElement = document.getElementById(
           `audio_${currentAudioIndex}`
         );
-        await currentAudioElement.pause();
-        await currentAudioElement.load();
+        currentAudioElement.pause();
+        currentAudioElement.load();
         setPlayStatus((prevStatus) =>
           prevStatus.map((status, i) =>
             i === currentAudioIndex ? false : status
@@ -70,12 +77,14 @@ const Home = () => {
       }
 
       if (audioElement.paused) {
-        await audioElement.play();
+        audioElement.play().catch((error) => {
+          console.error("Playback failed:", error);
+        });
         setPlayStatus((prevStatus) =>
           prevStatus.map((status, i) => (i === id ? true : status))
         );
       } else {
-        await audioElement.pause();
+        audioElement.pause();
         setPlayStatus((prevStatus) =>
           prevStatus.map((status, i) => (i === id ? false : status))
         );
@@ -139,7 +148,7 @@ const Home = () => {
 
       {selectSong === null ? (
         <div
-          className=" relative bg-gradient-to-r from-[#181818] to-[#212121] w-full px-8 py-10 flex gap-6 flex-wrap"
+          className=" bg-gradient-to-r from-[#181818] to-[#212121] w-full px-8 py-10 flex gap-6 flex-wrap"
           onClick={handleOpenButton}
         >
           {filteredData.length > 0 ? (
@@ -224,11 +233,10 @@ const Home = () => {
           )}
         </div>
       ) : (
-        <div className=" relative bg-gradient-to-r from-[#181818] to-[#212121] w-full px-8 py-10 flex gap-6 flex-wrap">
-          <div className="absolute w-full h-screen bg-gray-300 top-0 left-0">
-            <button onClick={handleOpenButton}>Close</button>
+        <div className="bg-[#121212]">
+          <div className=" bg-gradient-to-r from-[#181818] to-[#212121]  px-8 py-10 h-screen ">
+            <button onClick={handleClose}>Close</button>
             <div className="text-black">
-              {/* Currently Playing Song ID: {selectSong} */}
               {data
                 .filter((item) => item.id === selectSong)
                 .map((item) => (
@@ -236,9 +244,50 @@ const Home = () => {
                     <img src={item.img} alt={item.name} className="w-64 h-64" />
                     <h2>{item.name}</h2>
                     <p>{item.author}</p>
-                    <button onClick={() => handlePlayClick(item.id)}>
-                      Play
-                    </button>
+                    <div className="w-full  ">
+                      <img
+                        src="/play.svg"
+                        alt=""
+                        className="absolute w-[100px] h-[100px] mt-[48px]  top-2/4 left-[60%] transform -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100 cursor-pointer"
+                        onClick={() => handlePlayClick(item.id)}
+                      />
+                      <audio id={`audio_${item.id}`} className="hidden">
+                        <source src={item.song} />
+                      </audio>
+                      {playStatus[item.id] && (
+                        <>
+                          <div
+                            className="h-2 bg-gray-800 mt-2 rounded-md overflow-hidden"
+                            onMouseDown={startSeek}
+                            onMouseMove={(e) => {
+                              if (seeking) {
+                                handleSeek(e);
+                              }
+                            }}
+                            onMouseUp={stopSeek}
+                          >
+                            <div
+                              className={`h-full bg-gradient-to-r from-green-500 to-[#00bb44]  ${
+                                playStatus[item.id]
+                                  ? "transition-width duration-300"
+                                  : ""
+                              }`}
+                              style={{
+                                width: `${audioProgress}%`,
+                                transitionProperty: playStatus[item.id]
+                                  ? "width"
+                                  : "",
+                              }}
+                            ></div>
+                          </div>
+
+                          <div className="flex justify-between text-white mt-1">
+                            <p>{formatTime(audioCurrentTime)}</p>
+                            <p>{formatTime(audioDuration)}</p>
+                          </div>
+                        </>
+                      )}
+                    </div>
                   </div>
                 ))}
             </div>
