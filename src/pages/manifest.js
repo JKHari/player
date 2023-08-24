@@ -200,6 +200,14 @@ const data = [
     author: "Bgm",
     song: "audio/varamondrukudu.mp3",
   },
+  {
+    id: 26,
+    img: "/nenjodhu.jpg",
+    file: "",
+    name: "Nenjodu Kalanthavale",
+    author: "Bgm",
+    song: "audio/nenjodukalanthavale.mp3",
+  },
 ];
 
 export default data;
