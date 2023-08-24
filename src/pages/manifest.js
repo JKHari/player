@@ -168,6 +168,38 @@ const data = [
     author: "Bgm",
     song: "audio/kalugu.mp3",
   },
+  {
+    id: 22,
+    img: "/7g.avif",
+    file: "",
+    name: "7G Rainbow Colony",
+    author: "Bgm",
+    song: "audio/7g.mp3",
+  },
+  {
+    id: 23,
+    img: "/nenjankuzhi.jpg",
+    file: "",
+    name: "Nenjankuzhi",
+    author: "Bgm",
+    song: "audio/nenjankuzhi.mp3",
+  },
+  {
+    id: 24,
+    img: "/pouravey.jpg",
+    file: "",
+    name: "Po Uravey",
+    author: "Bgm",
+    song: "audio/matrangalathayum.mp3",
+  },
+  {
+    id: 25,
+    img: "/pouravey.jpg",
+    file: "",
+    name: "Varam Ondru Kudu",
+    author: "Bgm",
+    song: "audio/varamondrukudu.mp3",
+  },
 ];
 
 export default data;
